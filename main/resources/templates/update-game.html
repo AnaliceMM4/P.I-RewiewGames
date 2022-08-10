@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Atualizar Jogo</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet"
+              href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+              integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+              crossorigin="anonymous">
+        <link rel="stylesheet"
+              href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+              integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+              crossorigin="anonymous">
+        <link rel="icon" type="image/png" sizes="16x16"  th:href="@{/favicon-16x16.png}">
+
+    </head>
+    <body>
+        <div class="menu-item bg-dark mb-3 navbar sticky-top">
+
+            <a href="/" class="menu-item menu-link active btn btn-dark fa fa-gamepad text-danger" style="font-size:30px;"> ElectronicGames</a>
+            <div class="nav-item dropdown ml-auto ">
+                <div>   
+                    <h1 sec:authorize="isAuthenticated()" class="btn btn-outline-light btn-lg ml-auto nav-link text-capitalize font-weight-bold" data-toggle="dropdown"> [[${#httpServletRequest.remoteUser}]]</h1>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="jumbotron" style="background-image: url(/ess.jpg);">
+
+            <h2 class="text-light"> Edite seu Jogo</h2>
+
+            <form action="#"
+                  th:action="@{/jogos/update/{codJogo}(codJogo=${jogo.codJogo})}"
+                  th:object="${jogo}" method="post">
+                <div class="row">
+
+                    <div class="form-group col-md-10">
+                        <label for="nome" class="col-form-label"></label> <input
+                            type="text" th:field="*{nome}" class="form-control btn-dark" id="nome"
+                            placeholder="Nome"> <span
+                            th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"
+                            class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group col-md-10">
+                        <label for="descricao" class="col-form-label"></label>
+                        <textarea
+                            type="textarea" th:field="*{descricao}" class="form-control btn-dark" rows="10" id="descricao"
+                            placeholder="Descreva sobre o jogo"></textarea> <span
+                            th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}"
+                            class="text-danger"></span>
+                    </div>
+
+                    <input hidden="true" id="codJogo" value="jogo.nota" th:field="*{nota}"/>
+
+                    <div class="form-group col-md-10">
+                        <input type="submit" class="btn btn-dark" value="Atualizar Jogo">
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>
